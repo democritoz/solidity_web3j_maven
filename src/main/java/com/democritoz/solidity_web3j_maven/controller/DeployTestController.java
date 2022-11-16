@@ -13,21 +13,17 @@ import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.methods.response.EthAccounts;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.http.HttpService;
-import org.web3j.tx.ManagedTransaction;
 import org.web3j.tx.gas.DefaultGasProvider;
 
-import java.io.IOException;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @RestController
-public class TestController {
+public class DeployTestController {
 
 
-    @GetMapping("/test001")
+    @GetMapping("/deploy/test001")
     public ResponseEntity<Map<String, Object>> test001() {
 
 
