@@ -27,19 +27,12 @@ public class LoadTestController {
     @GetMapping("/load/test001")
     public ResponseEntity<Map<String, Object>> test001() {
 
-
-
         Web3j web3j = Web3j.build(new HttpService("http://home.ziofront.com:19201"));
-
 
         Map<String, Object> responseMap = new HashMap<>();
 
         try {
-            EthAccounts ethAccounts = web3j.ethAccounts().send();
-            log.debug("ethAccounts=[{}]", ethAccounts);
-            log.debug("ethAccounts.getAccounts().get(0)=[{}]", ethAccounts.getAccounts().get(0));
-
-
+            // private 키가... 하드코딩 되는데... 어케 숨길까?
             Credentials credentials = Credentials.create("0x3c3efec200b7c3ca8b8dc4f83f58666994c5659dedcf9b803339997b78e4f430");
             log.debug("credentials=[{}]", credentials);
 

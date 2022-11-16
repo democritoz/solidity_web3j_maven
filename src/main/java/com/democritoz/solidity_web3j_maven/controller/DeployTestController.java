@@ -26,15 +26,14 @@ public class DeployTestController {
     @GetMapping("/deploy/test001")
     public ResponseEntity<Map<String, Object>> test001() {
 
-
-
         Web3j web3j = Web3j.build(new HttpService("http://home.ziofront.com:19201"));
-
 
         Map<String, Object> responseMap = new HashMap<>();
 
         try {
-//            EthAccounts ethAccounts = web3j.ethAccounts().sendAsync().get();
+            // sendAsync와 send 비교하여, 응답 처리 방안을 좀더 확인 해봐야 할듯...
+            // EthAccounts ethAccounts = web3j.ethAccounts().sendAsync().get();
+
             EthAccounts ethAccounts = web3j.ethAccounts().send();
             log.debug("ethAccounts=[{}]", ethAccounts);
 
@@ -47,6 +46,9 @@ public class DeployTestController {
             log.debug("credentials=[{}]", credentials);
 
             // ############ Test001 #############
+            // deploy를 그냥 막 계속 되네?
+            // deploy할 때 마다, 새로운 contract 주소가 생성 된다.
+            // deploy를 application에서 하는게 맞나? 언제 해야 하나?
             RemoteCall<Test001> deployedTest001 = Test001.deploy(web3j, credentials, new DefaultGasProvider());
             log.debug("deployedTest001=[{}]", deployedTest001);
 
@@ -62,10 +64,6 @@ public class DeployTestController {
             String name = test001.getName().send();
             log.debug("name=[{}]", name);
 
-//            Test001 test001 = Test001.load("0xf23cfa3D9D711BdEe97B396677D297ff8F157801", web3j, credentials, new DefaultGasProvider());
-//            log.debug("test001=[{}]", test001);
-//
-//            log.debug("test001.isValid()=[{}]", test001.isValid());
 
             // ############ Test002 #############
             RemoteCall<Test002> deployedTest002 = Test002.deploy(web3j, credentials, new DefaultGasProvider());
@@ -84,21 +82,12 @@ public class DeployTestController {
 
             web3j.shutdown();
 
-//            if(test001.isValid()) {
-//                test001.setAge(BigInteger.valueOf(42)).send();
-//            }
-//
-//            BigInteger age = test001.getAge().send();
-//
-//            log.debug("age=[{}]", age);
-
-
             responseMap.put("ethAccounts", ethAccounts);
             responseMap.put("ethGetBalance", ethGetBalance);
             responseMap.put("credentials", credentials);
-            //responseMap.put("test001", test001);
-//            responseMap.put("age", age);
+
         } catch (Exception e) {
+
             log.error(e.getMessage(), e);
         }
 
