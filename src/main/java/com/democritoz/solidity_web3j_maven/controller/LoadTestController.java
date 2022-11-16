@@ -12,6 +12,7 @@ import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.methods.response.EthAccounts;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.gas.DefaultGasProvider;
 
@@ -51,7 +52,11 @@ public class LoadTestController {
 
             String name = null;
             if(isValid) {
-                test001.setName("hello").send();
+                TransactionReceipt transactionReceipt = test001.setName("hello").send();
+                log.debug("transactionReceipt=[{}]", transactionReceipt);
+                log.debug("transactionReceipt.toString()=[{}]", transactionReceipt.toString());
+                responseMap.put("transactionReceipt", transactionReceipt.toString());
+
                 name = test001.getName().send();
             }
 
@@ -72,9 +77,9 @@ public class LoadTestController {
 //            log.debug("age=[{}]", age);
 
 
-            responseMap.put("ethAccounts", ethAccounts);
-            responseMap.put("credentials", credentials);
-            //responseMap.put("test001", test001);
+//            responseMap.put("ethAccounts", ethAccounts);
+//            responseMap.put("credentials", credentials);
+//            responseMap.put("test001", test001);
 //            responseMap.put("age", age);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
