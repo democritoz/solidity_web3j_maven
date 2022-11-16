@@ -37,6 +37,10 @@ public class LoadTestController {
             log.debug("credentials=[{}]", credentials);
 
             // ############ Test001 #############
+            // application에서 contract를 deploy할때 마다 주소가 생성 되는데...
+            // 이 contract deploy는 언제, 어떻게 해야 하나?
+            // 기존의 contract는 어떻게 되나?
+            // 기존의 contract 데이터와 연결점이 없겠지...?
             Test001 test001 = Test001.load("0xd924ae59c06569e6760045bab6b1d8865cb32ad4", web3j, credentials, new DefaultGasProvider());
             log.debug("test001=[{}]", test001);
 
