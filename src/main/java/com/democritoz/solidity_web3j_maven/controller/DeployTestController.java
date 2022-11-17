@@ -54,6 +54,8 @@ public class DeployTestController {
 
             Test001 test001 = deployedTest001.send();
             log.debug("test001=[{}]", test001);
+
+            responseMap.put("test001ContractAddress", test001.getContractAddress());
             
 
             boolean isValidTest001 = test001.isValid();
